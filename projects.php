@@ -18,7 +18,7 @@ require 'db.php';
     <?php
 
 
-      $req = $bdd->prepare('SELECT name FROM projects WHERE id_user = :id_user');
+      $req = $bdd->prepare('SELECT id, name, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM projects WHERE id_user = :id_user');
       $req->execute(array(
         'id_user' => $_SESSION['id']
       ));
@@ -30,8 +30,10 @@ require 'db.php';
 
         <div class="col-md-4 col-sm-6">
           <div class="postit mt-3">
-            <a href="deleteproject.php">X</a>
-            <?= $project['name'] ?>
+            <a href="deleteproject.php?id=<?= $project['id'] ?>" class="delete">X</a>
+            <p><?= $project['name'] ?></p>
+            <p class="datesize"> <?= $project['deadlinebis'] ?></p>
+            <a href="lists.php?id=<?= $project['id'] ?>" class="text-center"><button type="button" class="btn btn-warning">Détails</button></a>
           </div>
         </div>
         <?php
@@ -62,7 +64,7 @@ require 'db.php';
          </div>
          <div class="form-group">
            <label for="exampleFormControlDate">DeadLine</label>
-           <input type="date" name="date" id="exampleFormControlDate" required>
+           <input type="date" name="date" id="exampleFormControlDate" min="<?= $date=date("Y-m-d") ?>" value="<?= $date ?>" required>
          </div>
 
          <button type="submit" name="addProject" class="btn btn-warning">Nouveau projet</button>

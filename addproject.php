@@ -13,7 +13,7 @@ if (isset($_POST['addProject'])) {
     $projectDate = strtotime($_POST['date']);
     $actualDate = strtotime(date("Y-m-d"));
 
-    if ($projectDate > $actualDate) {
+    if ($projectDate >= $actualDate) {
 
       $req = $bdd->prepare('INSERT INTO projects (name, description, deadline, id_user) VALUES(:name, :description, :deadline, :iduser)');
       $req->execute(array(
