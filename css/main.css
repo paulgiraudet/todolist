@@ -110,7 +110,6 @@ h1{
   min-height:250px;
   max-height:250px;
   font-size:50px;
-  margin: 25px;
 }
 
 .postitadd{
@@ -158,6 +157,19 @@ h1{
   -o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
   -ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
   transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+
+.postit a{
+  position:absolute;
+  right:10px;
+  top:10px;
+  color:black;
+  transition:0.3s all;
+}
+
+.postit a:hover{
+  text-decoration: none;
+  color:red;
 }
 
 input["type=date"]{

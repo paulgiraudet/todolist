@@ -3,17 +3,20 @@ session_start();
 
 $title = "TDL - Accueil";
 require 'header.php';
+require 'db.php';
+
  ?>
 
 <h1 class="text-center text-white">Tout Doux Liste</h1>
 
-<div class="container-fluid">
+<div class="container-fluid py-5">
   <div class="row">
-    <div class="col-md-9 borderFormRight">
+    <div class="col-md-9 borderFormRight pr-5">
+      <p class="colTitle text-center">Mes projets</p>
+      <div class="row mx-auto">
 
     <?php
 
-      require 'db.php';
 
       $req = $bdd->prepare('SELECT name FROM projects WHERE id_user = :id_user');
       $req->execute(array(
@@ -25,30 +28,37 @@ require 'header.php';
 
         ?>
 
-        <div class="col-md-3 col-sm-6">
-          <div class="postit">
+        <div class="col-md-4 col-sm-6">
+          <div class="postit mt-3">
+            <a href="deleteproject.php">X</a>
             <?= $project['name'] ?>
           </div>
         </div>
         <?php
       }
      ?>
+     </div>
    </div>
    <!-- end of projectlist -->
    <div class="col-md-3 borderFormLeft d-flex flex-column pb-3">
 
      <p class="colTitle text-center">Ajouter un projet</p>
 
-     <div class="postitadd mx-auto">
+<?php
 
-       <form class="" action="index.php" method="post">
+
+
+ ?>
+     <div class="postitadd mx-auto mt-3">
+
+       <form class="" action="addproject.php" method="post">
          <div class="form-group">
            <label for="exampleInputName">Nom du Projet</label>
-           <input type="text" class="form-control" id="exampleInputName" placeholder="Faire mon évaluation" required>
+           <input type="text" class="form-control" id="exampleInputName" name="name" placeholder="Faire mon évaluation" required>
          </div>
          <div class="form-group">
            <label for="exampleFormControlTextarea1">Description</label>
-           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+           <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3" required></textarea>
          </div>
          <div class="form-group">
            <label for="exampleFormControlDate">DeadLine</label>
