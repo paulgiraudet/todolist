@@ -15,14 +15,31 @@ if (isset($_GET['id'])) {
 
 <?php
 
-  $req_list = $bdd->prepare('SELECT * FROM lists WHERE id= :id');
-  $req_list->execute(array(
-    'id' => $_SESSION['idlist']
-  ));
+$req_project = $bdd->prepare('SELECT *, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM projects WHERE id= :id');
+$req_project->execute(array(
+  'id' => $_SESSION['idproject']
+));
 
-  $list = $req_list->fetch();
+$project = $req_project->fetch();
 
- ?>
+
+$req_list = $bdd->prepare('SELECT * FROM lists WHERE id= :id');
+$req_list->execute(array(
+  'id' => $_SESSION['idlist']
+));
+
+$list = $req_list->fetch();
+
+?>
+
+ <nav aria-label="breadcrumb" class="breadMargin pl-3">
+   <ol class="breadcrumb">
+     <li class="breadcrumb-item"><a href="projects.php">Mes Projets</a></li>
+     <li class="breadcrumb-item" aria-current="page"><a href="lists.php"><?= $project['name'] ?></a></li>
+     <li class="breadcrumb-item active" aria-current="page"><?= $list['name'] ?></li>
+   </ol>
+ </nav>
+
 
 <div class="container-fluid">
   <div class="row">
@@ -31,11 +48,11 @@ if (isset($_GET['id'])) {
 
         <p><?= $list['name'] ?></p></br>
 
-          <ul class="list-unstyled">
+          <ul class="list-unstyled taskManagement">
 
         <?php
 
-          $req_tasks = $bdd->prepare('SELECT name, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM tasks WHERE id_list = :idlist ORDER BY deadline');
+          $req_tasks = $bdd->prepare('SELECT id, name, do_done, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM tasks WHERE id_list = :idlist ORDER BY deadline');
           $req_tasks->execute(array(
             'idlist' => $_SESSION['idlist']
           ));
@@ -44,9 +61,18 @@ if (isset($_GET['id'])) {
 
           foreach ($tasks as $task) {
 
-            ?>
-              <li class="text-center"> <?= $task['name'] ?> - <i><?= $task['deadlinebis'] ?></i></li>
-            <?php
+            if ($task['do_done']==0) {
+              ?>
+                <li class="text-center"> <a href="validtask.php?id=<?= $task['id'] ?>&dodone=<?= $task['do_done'] ?>" class="dotask"><?= $task['name'] ?> - <i><?= $task['deadlinebis'] ?></i></a>
+                <a href="deletetask.php?id=<?= $task['id'] ?>" class="deleteTask">X</a></li>
+              <?php
+            }
+            else{
+              ?>
+                <li class="text-center"> <a href="validtask.php?id=<?= $task['id'] ?>&dodone=<?= $task['do_done'] ?>" class="donetask"><?= $task['name'] ?> - <i><?= $task['deadlinebis'] ?></i></a>
+                <a href="deletetask.php?id=<?= $task['id'] ?>" class="deleteTask">X</a></li>
+              <?php
+            }
           }
 
          ?>

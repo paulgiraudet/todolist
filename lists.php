@@ -21,7 +21,15 @@ if (isset($_GET['id'])) {
 
   $project = $req_project->fetch();
 
- ?>
+?>
+
+<nav aria-label="breadcrumb" class="breadMargin pl-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="projects.php">Mes Projets</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><?= $project['name'] ?></li>
+  </ol>
+</nav>
+
 <div class="projectDetails w-100">
   <ul class=" bg-warning w-75 mx-auto px-5 py-3">
     <li>Nom du projet : <?= $project['name'] ?></li>
@@ -53,7 +61,7 @@ if (isset($_GET['id'])) {
           <div class="postitadd mt-3">
             <a href="deletelist.php?id=<?= $list['id'] ?>" class="delete">X</a>
             <p><?= $list['name'] ?></p>
-            <ul>
+            <ul class="list-unstyled">
 
             <?php
 

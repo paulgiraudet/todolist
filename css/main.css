@@ -106,6 +106,15 @@ h1{
   font-size:40px;
 }
 
+.breadcrumb{
+  background-color: transparent;
+}
+
+.breadcrumb .active{
+  color:white;
+  font-style:italic;
+}
+
 .postit{
   min-height:250px;
   max-height:250px;
@@ -120,7 +129,7 @@ h1{
 }
 
 
-.postit, .postitadd label, .postitList{
+.postit, .postitadd label, .postitList, .postitadd{
   font-family:'Reenie Beanie';
 }
 
@@ -164,6 +173,30 @@ h1{
 .postitList ul{
   text-decoration: none;
 }
+
+.dotask, .donetask{
+  transition:0.3s all;
+}
+
+.dotask{
+  color:black;
+}
+
+.dotask:hover{
+  text-decoration: none;
+  color:green;
+}
+
+.donetask{
+  text-decoration: line-through;
+  color:green;
+}
+
+.donetask:hover{
+  color:red;
+  text-decoration: line-through;
+}
+
 .delete{
   position:absolute;
   right:10px;
@@ -172,9 +205,16 @@ h1{
   transition:0.3s all;
 }
 
-.delete:hover{
+.delete:hover, .deleteTask:hover{
   text-decoration: none;
   color:red;
+}
+
+.deleteTask{
+  position:absolute;
+  right:20px;
+  color:black;
+  transition:0.3s all;
 }
 
 input["type=date"]{
