@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (empty($_SESSION['id'])) {
+  header('Location : index.php');
+}
+
 $title = "TDL - Accueil";
 require 'header.php';
 require 'db.php';
@@ -8,12 +12,7 @@ require 'db.php';
 if (isset($_GET['id'])) {
   $_SESSION['idlist'] = $_GET['id'];
 }
- ?>
 
-<h1 class="text-center text-white">Tout Doux Liste</h1>
-
-
-<?php
 
 $req_project = $bdd->prepare('SELECT *, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM projects WHERE id= :id');
 $req_project->execute(array(

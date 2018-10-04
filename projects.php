@@ -1,5 +1,10 @@
 <?php
+
 session_start();
+
+if (empty($_SESSION['id'])) {
+  header('Location : index.php');
+}
 
 $title = "TDL - Accueil";
 require 'header.php';
@@ -7,7 +12,7 @@ require 'db.php';
 
  ?>
 
-<h1 class="text-center text-white">Tout Doux Liste</h1>
+<!-- <h1 class="text-center text-white">Tout Doux Liste</h1> -->
 
 
 <nav aria-label="breadcrumb" class="breadMargin pl-3">

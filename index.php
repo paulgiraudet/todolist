@@ -1,11 +1,11 @@
-<?php $title = "TDL - Accueil";
+<?php
+
 session_start();
-session_destroy();
+
+$title = "TDL - Accueil";
 require 'header.php';
 require 'db.php';
  ?>
-
- <h1 class="text-center text-white">Tout Doux Liste</h1>
 
 <div class="container">
   <div class="row">

@@ -106,6 +106,17 @@ h1{
   font-size:40px;
 }
 
+header nav a{
+  color:white;
+  transition:0.3s all;
+}
+
+header nav a:hover{
+  color:white;
+  opacity:0.7;
+  text-decoration: none;
+}
+
 .breadcrumb{
   background-color: transparent;
 }
