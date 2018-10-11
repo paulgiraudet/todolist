@@ -12,6 +12,17 @@ require 'db.php';
     <div class="mx-auto col-sm-6">
       <div class="postitList mt-3">
       <?php
+
+      $req_infoUser = $bdd->prepare('SELECT * from members WHERE id = :iduser');
+      $req_infoUser->execute(array(
+        'iduser' => $_SESSION['id']
+      ));
+
+      $user = $req_infoUser->fetch();
+
+      // if ($user['age']=="") {
+      //   $user['age'] = 0;
+      // }
       if (isset($_POST['addInfoProfile'])) {
         ?>
 
@@ -19,21 +30,21 @@ require 'db.php';
 
             <div class="form-group">
               <label for="exampleInputName">Nom</label>
-              <input type="text" class="form-control" id="exampleInputName" name="lastname" placeholder="Jean">
+              <input type="text" class="form-control" id="exampleInputName" name="lastname" value="<?=$user['lastname'] ?>">
             </div>
             <div class="form-group">
               <label for="exampleInputName2">Prénom</label>
-              <input type="text" class="form-control" id="exampleInputName2" name="lastname" placeholder="Jean">
+              <input type="text" class="form-control" id="exampleInputName2" name="firstname" value="<?=$user['firstname'] ?>">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Adresse Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="jean.jean@jean.jean">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value="<?=$user['email'] ?>">
               <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse email.</small>
             </div>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Âge</label>
               <select class="form-control" id="exampleFormControlSelect1" name="age">
-                    <option>0</option>
+                    <option><?=$user['age'] ?></option>
                 <?php
                   for ($i=7; $i<=77 ; $i++) {
                     ?>
@@ -47,10 +58,6 @@ require 'db.php';
               <label for="exampleInputPassword1">Mot de passe</label>
               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" name="password" required>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword2">Mot de passe (vérification)</label>
-              <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Vérifiez votre mot de passe" name="passwordbis" required>
-            </div>
 
             <button type="submit" name="changeProfile" class="btn btn-warning">Mise à jour</button>
 
@@ -58,13 +65,6 @@ require 'db.php';
         <?php
       }
       else{
-
-            $req_infoUser = $bdd->prepare('SELECT * from members WHERE id = :iduser');
-            $req_infoUser->execute(array(
-              'iduser' => $_SESSION['id']
-            ));
-
-            $user = $req_infoUser->fetch();
 
             if ($user['age']<7 OR $user['age']>77) {
               $user['age'] = "";
