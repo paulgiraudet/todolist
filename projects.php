@@ -6,7 +6,7 @@ if (empty($_SESSION['id'])) {
   header('Location : index.php');
 }
 
-$title = "TDL - Accueil";
+$title = "TDL - Mes projets";
 require 'header.php';
 require 'db.php';
 

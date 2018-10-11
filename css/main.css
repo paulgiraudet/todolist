@@ -134,7 +134,7 @@ header nav a:hover{
 
 .postitadd, .postitList{
   min-height:450px;
-  max-height:450px;
+  /* max-height:450px; */
   padding: 20px;
   font-size:30px;
 }
