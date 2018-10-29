@@ -3,8 +3,10 @@
 session_start();
 require 'db.php';
 
-
+//checking if we come from tasks.php
 if (isset($_GET['id'], $_GET['dodone']) AND !empty($_GET['id'])) {
+
+//just switching values for our task to show if we did it or not
 
   if ($_GET['dodone']==0) {
 
@@ -30,6 +32,7 @@ else{
   echo "Erreur de valeur.";
 }
 
+// back to tasks page
 header('Location:tasks.php');
 
  ?>

@@ -2,6 +2,7 @@
 
 session_start();
 
+//afk security
 if (empty($_SESSION['id'])) {
   header('Location : index.php');
 }
@@ -12,15 +13,14 @@ require 'db.php';
 
  ?>
 
-<!-- <h1 class="text-center text-white">Tout Doux Liste</h1> -->
-
-
+<!-- display breadcrumb -->
 <nav aria-label="breadcrumb" class="breadMargin pl-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">Mes Projets</li>
   </ol>
 </nav>
 
+<!-- list of differents projects -->
 <div class="container-fluid py-5">
   <div class="row">
     <div class="col-md-9 borderFormRight pr-5">
@@ -29,13 +29,14 @@ require 'db.php';
 
     <?php
 
-
+      //getting all projects link to this particular user account
       $req = $bdd->prepare('SELECT id, name, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM projects WHERE id_user = :id_user');
       $req->execute(array(
         'id_user' => $_SESSION['id']
       ));
       $projects = $req->fetchAll();
 
+      //displaying each project with its name/deadline and a link to its particular list of lists
       foreach ($projects as $project) {
 
         ?>
@@ -54,15 +55,12 @@ require 'db.php';
      </div>
    </div>
    <!-- end of projectlist -->
+
+  <!-- addProjectForm -->
    <div class="col-md-3 borderFormLeft d-flex flex-column pb-3">
 
      <p class="colTitle text-center">Ajouter un projet</p>
 
-<?php
-
-
-
- ?>
      <div class="postitadd mx-auto mt-3">
 
        <form class="" action="addproject.php" method="post">

@@ -17,6 +17,8 @@ require 'db.php';
       require 'inscriptiontest.php';
  ?>
 
+    <!-- inscriptionForm -->
+
         <form method="post" action="index.php" class="my-5">
           <div class="form-group">
             <label for="exampleInputPseudo">Pseudo</label>
@@ -47,6 +49,9 @@ require 'db.php';
       require 'connectiontest.php';
  ?>
 
+
+  <!-- connectionForm -->
+  
       <form method="post" action="index.php" class="mt-5">
         <div class="form-group">
           <label for="exampleInputPseudo">Pseudo</label>

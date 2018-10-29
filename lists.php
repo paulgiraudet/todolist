@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//afk security
 if (empty($_SESSION['id'])) {
   header('Location : index.php');
 }
@@ -9,11 +10,12 @@ $title = "TDL - Mes Listes";
 require 'header.php';
 require 'db.php';
 
+//getting the id project for our linked lists
 if (isset($_GET['id'])) {
   $_SESSION['idproject'] = $_GET['id'];
 }
 
-
+  //getting our project details
   $req_project = $bdd->prepare('SELECT *, DATE_FORMAT(deadline, "%d/%m/%Y") AS deadlinebis FROM projects WHERE id= :id');
   $req_project->execute(array(
     'id' => $_SESSION['idproject']
@@ -23,6 +25,7 @@ if (isset($_GET['id'])) {
 
 ?>
 
+<!-- display breadcrumb -->
 <nav aria-label="breadcrumb" class="breadMargin pl-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="projects.php">Mes Projets</a></li>
@@ -30,6 +33,7 @@ if (isset($_GET['id'])) {
   </ol>
 </nav>
 
+<!-- our project details -->
 <div class="projectDetails w-100">
   <ul class=" bg-warning w-75 mx-auto px-5 py-3">
     <li>Nom du projet : <?= $project['name'] ?></li>
@@ -46,13 +50,14 @@ if (isset($_GET['id'])) {
 
     <?php
 
-
+      //getting all our lists linked to this project
       $req = $bdd->prepare('SELECT id, name FROM lists WHERE id_project = :idproject');
       $req->execute(array(
         'idproject' => $_SESSION['idproject']
       ));
       $lists = $req->fetchAll();
 
+      //displaying each list
       foreach ($lists as $list) {
 
         ?>
@@ -65,6 +70,7 @@ if (isset($_GET['id'])) {
 
             <?php
 
+              //getting all differents tasks of each list
               $req = $bdd->prepare('SELECT name FROM tasks WHERE id_list = :idlist');
               $req->execute(array(
                 'idlist' => $list['id']
@@ -72,17 +78,17 @@ if (isset($_GET['id'])) {
 
               $tasks = $req->fetchAll();
 
+              // tasks diplay
               foreach ($tasks as $task) {
 
                 ?>
-
                 <li class="text-center"> <?= $task['name'] ?></li>
-
                 <?php
               }
 
              ?>
              </ul>
+            <!-- link to this particular list -->
             <a href="tasks.php?id=<?= $list['id'] ?>" class="text-center"><button type="button" class="btn btn-warning">Détails</button></a>
           </div>
         </div>
@@ -92,15 +98,12 @@ if (isset($_GET['id'])) {
      </div>
    </div>
    <!-- end of projectlist -->
+
+  <!-- addListForm -->
    <div class="col-md-3 borderFormLeft d-flex flex-column pb-3">
 
      <p class="colTitle text-center">Ajouter une liste</p>
 
-<?php
-
-
-
- ?>
      <div class="postit mx-auto mt-3 px-3">
 
        <form class="" action="addlist.php" method="post">

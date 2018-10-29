@@ -13,6 +13,7 @@ require 'db.php';
       <div class="postitList mt-3">
       <?php
 
+      //checking user information
       $req_infoUser = $bdd->prepare('SELECT * from members WHERE id = :iduser');
       $req_infoUser->execute(array(
         'iduser' => $_SESSION['id']
@@ -20,13 +21,13 @@ require 'db.php';
 
       $user = $req_infoUser->fetch();
 
-      // if ($user['age']=="") {
-      //   $user['age'] = 0;
-      // }
+      //addInfoProfileForm
       if (isset($_POST['addInfoProfile'])) {
         ?>
 
           <form class="" action="addInfoProfile.php" method="post">
+
+        <!-- keeping differents profile informations in value in case of the user doesn't want to change them -->
 
             <div class="form-group">
               <label for="exampleInputName">Nom</label>
@@ -63,13 +64,16 @@ require 'db.php';
 
           </form>
         <?php
+        $_POST['addInfoProfile'] = false;
       }
       else{
-
+            //avoiding errors
             if ($user['age']<7 OR $user['age']>77) {
               $user['age'] = "";
             }
         ?>
+
+        <!-- displaying user informations -->
             <ul class="text-left">
               <li class="my-3">Nom : <?=$user['lastname'] ?></li>
               <li class="my-3">Prénom : <?=$user['firstname'] ?></li>
