@@ -24,7 +24,7 @@
 
   <!-- responsive navbar with bootstrap -->
   <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-    <a class="navbar-brand mx-auto" href="<?= $route = isset($_SESSION['id'])? "projects" : "index" ; ?>.php"><h1 class="<?php if (isset($_SESSION['id'])){ ?>ml-5 <?php } ?> text-white">Tout Doux Liste</h1></a>
+    <a class="navbar-brand mx-auto" href="<?= $route = isset($_SESSION['id'])? "projects" : "index" ; ?>.php"><h1 class="<?php if (isset($_SESSION['id'])){ ?>ml-5 <?php } ?> text-white">ToDo List</h1></a>
     <?php
     //checking if we are connected
     if(isset($_SESSION['id'])) {
