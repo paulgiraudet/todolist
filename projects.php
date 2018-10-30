@@ -23,7 +23,7 @@ require 'db.php';
 <!-- list of differents projects -->
 <div class="container-fluid py-5">
   <div class="row">
-    <div class="col-md-9 borderFormRight pr-5">
+    <div class="col-md-9 borderFormRight mx-auto">
       <p class="colTitle text-center">Mes projets</p>
       <div class="row mx-auto">
 
